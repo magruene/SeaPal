@@ -2,14 +2,57 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	<form action="Weather Information">
-		<f
-	
-	
-	
-	</form>
-</body>
+<title>Weatherform</title>
+	</head>
+	<body>
+		<div id="weather-form-container">
+		<h1>Weather Data</h1>
+			<form name="Weather Information" id="weather-form" method="post" action="path....">
+			<fieldset>
+				<legend>Observations of ...</legend>
+					<div>
+						<label for="windstrength">Wind Strength:</label>
+						<input type="text" name="windstrength" id="windstrength"/>
+					</div>
+					<div>
+						<label for="winddirection">Wind direction:</label>
+						<input type="text" name="winddirection" id="winddirection"/>
+					</div>
+					<div>
+						<label for="airpressure">Air pressure:</label>
+						<input type="text" name="airpressure" id="airpressure"/>
+					</div>
+					<div>
+						<label for="temperature">Temperatur:</label>
+						<input type="text" name="temperature" id="temperature">
+						<label for="unit">Unit:</label>
+						<select name="unit" id="unit">
+							<option value="C">Celcius</option>
+							<option value="F">Fahrenheit</option>
+						</select>
+					</div>
+					<div>
+						<label for="clouds">Clouds:</label>
+						<input type="radio" name="clouds" id="answer_yes" value="y">
+						<label for="answer_yes">Yes</label>
+						<input type="radio" name="clouds" id="answer_no" value="n">
+						<label for="answer_no">No</label> <br>
+					</div>
+					<div>
+						<label for="rain">Rain:</label>
+						<input type="radio" name="rain" id="answerrain_yes" value="y">
+						<label for="answerrain_yes">Yes</label>
+						<input type="radio" name="rain" id="answerrain_no" value="n">
+						<label for="answerrain_no">No</label>
+					</div>
+					<div>
+			        	<label >Date</label>
+			            <input  type="date" id="wtime"/>
+			        </div>
+					
+											
+			</fieldset>
+		</form>
+		</div>
+	</body>
 </html>
