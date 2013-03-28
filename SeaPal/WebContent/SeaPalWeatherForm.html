@@ -1,230 +1,188 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Weather Data</title>
+
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="/css/timepicker.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="jquery-ui-timepicker-addon.js"></script>
+<script>
+	$(function() {
+		$('#datepicker').datetimepicker();
+	});
+</script>
 </head>
 <body>
-	<div id="form-main-container">
+	<div id="weather-form-container">
 		<h1>Weather Data</h1>
 		<div class="actual-form">
-			<form name='weather_data_form' action=goToSeaPal method='post'
-				id='weather_data_form' enctype='multipart/form-data'>
-				<ul class='actual-fields'>
-					<li id='li-f514b08af695a2' rel='Tag3' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Wind Strength</span><span
-									class='fld-required'>*</span>
-								<div class='tip-on-focus'>
-									<span class='tool_tip_text'>Type in the Wind Strength.
-										(Integer value)</span>
-								</div>
-							</div>
-							<input type='text' name='f514b08af695a2' id='f514b08af695a2'
-								value='0' size='' maxlength=''
-								class='fld-medium actual_default number-only' />
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b09150c48b' rel='Tag4' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Wind Direction</span><span
-									class='fld-required'>*</span>
-								<div class='tip-on-focus'>
-									<span class='tool_tip_text'>Select from which direction
-										the wind blew.</span>
-								</div>
-							</div>
-							<select name='f514b09150c48b' id='f514b09150c48b'
-								class='fld-medium'>
-								<option value='North' selected="selected">North</option>
-								<option value='East'>East</option>
-								<option value='South'>South</option>
-								<option value='West'>West</option>
-								<option value='North-East'>North-East</option>
-								<option value='North-West'>North-West</option>
-								<option value='South-East'>South-East</option>
-								<option value='South-West'>South-West</option>
-							</select>
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b0ab038b78' rel='Tag3' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Temperature</span><span
-									class='fld-required'>*</span>
-								<div class='tip-below-field'>
-									<span class='tool_tip_text'>Type in the temperature</span>
-								</div>
-							</div>
-							<input type='text' name='f514b0ab038b78' id='f514b0ab038b78'
-								value='0' size='' maxlength=''
-								class='fld-medium actual_default number-only' />
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b0b18c8120' rel='Tag4' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Unit</span><span class='fld-required'>*</span>
-							</div>
-							<select name='f514b0b18c8120' id='f514b0b18c8120'
-								class='fld-medium'>
-								<option value='Celsius' selected="selected">Celsius</option>
-								<option value='Fahrenheit'>Fahrenheit</option>
-							</select>
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b0b98dd1ed' rel='Tag5' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Cloudy?</span><span
-									class='fld-required'>*</span>
-							</div>
-							<table border='0' cellpadding='0' cellspacing='0' width='400px'
-								class='all-radio'>
-								<tr>
-									<td width='32%'><input name='f514b0b98dd1ed'
-										id='f514b0b98dd1ed-1' type='radio' value='Yes' /><span><label
-											for='f514b0b98dd1ed-1'>Yes</label></span></td>
-									<td width='32%'><input name='f514b0b98dd1ed'
-										id='f514b0b98dd1ed-2' type='radio' value='No' /><span><label
-											for='f514b0b98dd1ed-2'>No</label></span></td>
-								</tr>
-							</table>
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b0bd21d661' rel='Tag5' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Rain?</span><span
-									class='fld-required'>*</span>
-							</div>
-							<table border='0' cellpadding='0' cellspacing='0' width='400px'
-								class='all-radio'>
-								<tr>
-									<td width='32%'><input name='f514b0bd21d661'
-										id='f514b0bd21d661-1' type='radio' value='Yes' /><span><label
-											for='f514b0bd21d661-1'>Yes</label></span></td>
-									<td width='32%'><input name='f514b0bd21d661'
-										id='f514b0bd21d661-2' type='radio' value='No' /><span><label
-											for='f514b0bd21d661-2'>No</label></span></td>
-								</tr>
-							</table>
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b0bf8ba7d5' rel='Tag3' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Wave height</span><span
-									class='fld-required'>*</span>
-								<div class='tip-on-focus'>
-									<span class='tool_tip_text'>In meters</span>
-								</div>
-							</div>
-							<input type='text' name='f514b0bf8ba7d5' id='f514b0bf8ba7d5'
-								value='0' size='' maxlength=''
-								class='fld-medium actual_default number-only' />
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-x2IdaZWCV97MgpBEJuYf' rel='Tag4' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Wave Direction</span><span
-									class='fld-required'>*</span>
-								<div class='tip-on-focus'>
-									<span class='tool_tip_text'>Select from which direction
-										the wind blew.</span>
-								</div>
-							</div>
-							<select name='x2IdaZWCV97MgpBEJuYf' id='x2IdaZWCV97MgpBEJuYf'
-								class='fld-medium'>
-								<option value='North' selected="selected">North</option>
-								<option value='East'>East</option>
-								<option value='South'>South</option>
-								<option value='West'>West</option>
-								<option value='North-East'>North-East</option>
-								<option value='North-West'>North-West</option>
-								<option value='South-East'>South-East</option>
-								<option value='South-West'>South-West</option>
-							</select>
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li id='li-f514b0cef1c608' rel='Tag10' validation='required'>
-						<div class='single-field'>
-							<div class='actual-fields-label'>
-								<span class='actual_label'>Date</span><span class='fld-required'>*</span>
-							</div>
-							<input type='text' name='f514b0cef1c608' value=''
-								id='f514b0cef1c608'
-								class='date-actual parameter-field fld-small-medium date_picker number-only'
-								style='float: left;' />
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-							<div style='clear: both'>
-								<!-- -->
-							</div>
-						</div>
-					</li>
-					<li style="list-style: none; display: inline"><script
-							type="text/javascript">
-						//<![CDATA[
-						(function($) {
-							$(document)
-									.ready(
-											function() {
-												$('#f514b0cef1c608')
-														.datepicker(
-																{
-																	yearRange : '-100:+10',
-																	buttonImageOnly : true,
-																	showOn : 'both',
-																	buttonImage : 'http://www.form2go.com/images/calendar-month.png',
-																	changeMonth : true,
-																	changeYear : true,
-																	dateFormat : 'dd/mm/yy'
-																});
+			<form name='weather-form' action='LinkToSeaPal' method='post'
+				id='weather-form' enctype='multipart/form-data'>
 
-											});
-						})(jQuery);
-						//]]>
-					</script> <script type="text/javascript">
-						//<![CDATA[
-						document
-								.write('<input type=\'hidden\' name=\'CurrURL\' value='+window.location+'>')
-						//]]>
-					</script></li>
-					<li style='position: static'>
-						<div class='formBtnContainerPreview fltlft'>
-							<span class='dont-move'><input type='submit'
-								id='form2go_submit' class='submitBtn' value='Submit' /></span>
+
+				<fieldset>
+					<legend>Wind Data</legend>
+					<div>
+						<div>
+							<span>Wind Strength</span><span>*</span>
+							<div>
+								<span>Type in the Wind Strength. (Integer value)</span>
+							</div>
 						</div>
-						<p class='clear'>&nbsp;</p>
-					</li>
-				</ul>
+						<input type='text' name='wind_strength' id='wind_strength_field' />
+						<div>
+							<!-- -->
+						</div>
+					</div>
+					<div>
+						<div>
+							<span>Wind Direction</span><span>*</span>
+							<div>
+								<span>Select from which direction the wind blew.</span>
+							</div>
+						</div>
+						<select name='wind_direction' id='wind_direction_field'>
+							<option value='North' selected="selected">North</option>
+							<option value='East'>East</option>
+							<option value='South'>South</option>
+							<option value='West'>West</option>
+							<option value='North-East'>North-East</option>
+							<option value='North-West'>North-West</option>
+							<option value='South-East'>South-East</option>
+							<option value='South-West'>South-West</option>
+						</select>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+				</fieldset>
+				<br />
+				<fieldset>
+					<legend>Temperature</legend>
+					<div>
+						<div>
+							<span>Temperature</span><span>*</span>
+							<div>
+								<span>Type in the temperature</span>
+							</div>
+						</div>
+						<input type='text' name='temperature' id='temperature_field'
+							value='0' />
+						<div>
+							<span>Unit</span><span>*</span>
+						</div>
+						<select name='celsius_fahrenheit' id='celsius_fahrenheit_select'>
+							<option value='Celsius' selected="selected">Celsius</option>
+							<option value='Fahrenheit'>Fahrenheit</option>
+						</select>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+				</fieldset>
+				<br />
+				<fieldset>
+					<legend>Select</legend>
+					<div>
+						<div>
+							<span>Cloudy?</span><span>*</span>
+						</div>
+						<table border='0' cellpadding='0' cellspacing='0' width='400px'
+							class='all-radio'>
+							<tr>
+								<td width='32%'><input name='yes' id='cloudy-yes-radio'
+									type='radio' value='Yes' /><span><label
+										for='cloudy-yes-radio'>Yes</label></span></td>
+								<td width='32%'><input name='no' id='cloudy-no-radio'
+									type='radio' value='No' /><span><label
+										for='cloudy-no-radio'>No</label></span></td>
+							</tr>
+						</table>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+					<div>
+						<div>
+							<span>Rain?</span><span>*</span>
+						</div>
+						<table border='0' cellpadding='0' cellspacing='0' width='400px'
+							class='all-radio'>
+							<tr>
+								<td width='32%'><input name='yes' id='rain-yes-radio'
+									type='radio' value='Yes' /><span><label
+										for='rain-yes-radio'>Yes</label></span></td>
+								<td width='32%'><input name='no' id='rain-no-radio'
+									type='radio' value='No' /><span><label
+										for=rain-no-radio>No</label></span></td>
+							</tr>
+						</table>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+				</fieldset>
+				<br />
+				<fieldset>
+					<legend>Wave data</legend>
+					<div>
+						<div>
+							<span>Wave height</span><span>*</span>
+							<div>
+								<span>In meters</span>
+							</div>
+						</div>
+						<input type='text' name='wave-height' id='wave-height-input' />
+						<div>
+							<!-- -->
+						</div>
+					</div>
+					<div>
+						<div>
+							<span>Wave Direction</span><span>*</span>
+							<div>
+								<span>Select from which direction the wind blew.</span>
+							</div>
+						</div>
+						<select name='wave-direction' id='wave-direction-select'>
+							<option value='North' selected="selected">North</option>
+							<option value='East'>East</option>
+							<option value='South'>South</option>
+							<option value='West'>West</option>
+							<option value='North-East'>North-East</option>
+							<option value='North-West'>North-West</option>
+							<option value='South-East'>South-East</option>
+							<option value='South-West'>South-West</option>
+						</select>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+				</fieldset>
+				<br />
+				<fieldset>
+					<legend>Date and time</legend>
+					<div>
+						<div>
+							<span>Date</span><span>*</span>
+						</div>
+						<input type='text' name='date' id='datepicker' />
+						<div>
+							<!-- -->
+						</div>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+				</fieldset>
+				<br /> <br />
+				<div>
+					<span><input type='submit' id='weather_submit'
+						value='Submit' /></span>
+				</div>
+				<p class='clear'>&nbsp;</p>
 			</form>
 		</div>
 	</div>
