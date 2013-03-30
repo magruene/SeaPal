@@ -2,57 +2,123 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link href=zenstyle.css rel="stylesheet" type="text/css">
 <title>Weatherform</title>
-	</head>
-	<body>
-		<div id="weather-form-container">
+</head>
+<body>
+	<div id="weather-form-container">
 		<h1>Weather Data</h1>
-			<form name="Weather Information" id="weather-form" method="post" action="path....">
+		<form name="Weather Information" id="weather-form" method="post"
+			action="path....">
 			<fieldset>
 				<legend>Observations of ...</legend>
+				<fieldset>
+					<legend>Wind Data</legend>
 					<div>
-						<label for="windstrength">Wind Strength:</label>
-						<input type="text" name="windstrength" id="windstrength"/>
+						<div>
+							<span>Wind Strength</span>
+						</div>
+						<input type="text" name="wind_strength" id="wind_strength_field">
+						<div>
+							<!-- -->
+						</div>
 					</div>
 					<div>
-						<label for="winddirection">Wind direction:</label>
-						<input type="text" name="winddirection" id="winddirection"/>
-					</div>
-					<div>
-						<label for="airpressure">Air pressure:</label>
-						<input type="text" name="airpressure" id="airpressure"/>
-					</div>
-					<div>
-						<label for="temperature">Temperatur:</label>
-						<input type="text" name="temperature" id="temperature">
-						<label for="unit">Unit:</label>
-						<select name="unit" id="unit">
-							<option value="C">Celcius</option>
-							<option value="F">Fahrenheit</option>
+						<div>
+							<span>Wind Direction</span>
+						</div>
+						<select name="wind_direction" id="wind_direction_field">
+							<option value="North" selected="selected">North</option>
+							<option value="East">East</option>
+							<option value="South">South</option>
+							<option value="West">West</option>
+							<option value="North-East">North-East</option>
+							<option value="North-West">North-West</option>
+							<option value="South-East">South-East</option>
+							<option value="South-West">South-West</option>
 						</select>
+						<div>
+							<!-- -->
+						</div>
+					</div>
+				</fieldset>
+				<div>
+					<fieldset>
+						<legend>Temparature</legend>
+						<div>
+							<label for="airpressure">Air pressure:</label> <input type="text"
+								name="airpressure" id="airpressure" />
+						</div>
+						<div>
+							<label for="temperature">Temperatur:</label> <input type="text"
+								name="temperature" id="temperature"> <label for="unit">Unit:</label>
+							<select name="unit" id="unit">
+								<option value="C">Celcius</option>
+								<option value="F">Fahrenheit</option>
+							</select>
+						</div>
+					</fieldset>
+				</div>
+				<div>
+					<fieldset>
+						<legend>Sky</legend>
+						<div>
+							<label for="clouds">Clouds:</label> <input type="radio"
+								name="clouds" id="answer_yes" value="y"> <label
+								for="answer_yes">Yes</label> <input type="radio" name="clouds"
+								id="answer_no" value="n"> <label for="answer_no">No</label>
+							<br>
+						</div>
+						<div>
+							<label for="rain">Rain:</label> <input type="radio" name="rain"
+								id="answerrain_yes" value="y"> <label
+								for="answerrain_yes">Yes</label> <input type="radio" name="rain"
+								id="answerrain_no" value="n"> <label for="answerrain_no">No</label>
+						</div>
+					</fieldset>
+				</div>
+				<fieldset>
+					<legend>Wave data</legend>
+					<div>
+						<div>
+							<span>Wave height</span>
+							<div>
+								<span>In meters</span>
+							</div>
+						</div>
+						<input type='text' name='wave-height' id='wave-height-input' />
+						<div>
+							<!-- -->
+						</div>
 					</div>
 					<div>
-						<label for="clouds">Clouds:</label>
-						<input type="radio" name="clouds" id="answer_yes" value="y">
-						<label for="answer_yes">Yes</label>
-						<input type="radio" name="clouds" id="answer_no" value="n">
-						<label for="answer_no">No</label> <br>
+						<div>
+							<span>Wave Direction</span>
+						</div>
+						<select name='wave-direction' id='wave-direction-select'>
+							<option value='North' selected="selected">North</option>
+							<option value='East'>East</option>
+							<option value='South'>South</option>
+							<option value='West'>West</option>
+							<option value='North-East'>North-East</option>
+							<option value='North-West'>North-West</option>
+							<option value='South-East'>South-East</option>
+							<option value='South-West'>South-West</option>
+						</select>
+						<div>
+							<!-- -->
+						</div>
 					</div>
+				</fieldset>
+				<fieldset>
+				<legend>Time</legend>
 					<div>
-						<label for="rain">Rain:</label>
-						<input type="radio" name="rain" id="answerrain_yes" value="y">
-						<label for="answerrain_yes">Yes</label>
-						<input type="radio" name="rain" id="answerrain_no" value="n">
-						<label for="answerrain_no">No</label>
+						<label>Date</label> <input type="date" id="date" />
+						<label>Time</label> <input type="time" id="time" />
 					</div>
-					<div>
-			        	<label >Date</label>
-			            <input  type="date" id="wtime"/>
-			        </div>
-					
-											
+				</fieldset>
 			</fieldset>
 		</form>
-		</div>
-	</body>
+	</div>
+</body>
 </html>
