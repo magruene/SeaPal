@@ -1,11 +1,12 @@
 <head>
-	<link href="http://exacttarget.github.com/fuelux/vendor/fuelux/css/fuelux.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/timepicker.css" />
+<link href="http://exacttarget.github.com/fuelux/vendor/fuelux/css/fuelux.css" rel="stylesheet" />
 <link href="http://fuelcdn.com/fuelux-imh/2.2/css/fuelux-responsive.css" rel="stylesheet" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet" href="css/timepicker.css" />
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
 <script src="http://fuelcdn.com/fuelux-imh/2.2/loader.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
