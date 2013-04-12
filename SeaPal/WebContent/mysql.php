@@ -15,14 +15,14 @@ if (!$db_selected) {
 	$sql	=	"CREATE	TABLE	WeatherData (
 			ID int not null auto_increment,
 			WindStrength varchar(15),
-			WindDirection varchar(15),
+			WindDirection varchar(10),
 			AirPressure varchar(15),
 			Temparature varchar(15),
 			Unit varchar(15),
 			Clouds varchar(1),
 			Rain varchar(1),
 			WaveHeight varchar(15),
-			WindDirection varchar(10),
+			WaveDirection varchar(10),
 			DateTime datetime,
 			Primary Key(ID)
 			)";
