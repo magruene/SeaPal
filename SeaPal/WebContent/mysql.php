@@ -1,5 +1,5 @@
 <?php
-$con	=	mysql_connect("localhost","testuser","testuser");
+$con	=	mysql_connect("localhost","root","root");
 
 $db_selected = mysql_select_db('webtech2013', $con);
 if (!$db_selected) {

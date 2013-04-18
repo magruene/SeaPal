@@ -54,7 +54,7 @@
 									<label class="">Wind strength</label>
 								</div>
 								<div class="span1  ">
-									<input name="wind_strength"
+									<input name="wind_strength" onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['WindStrength']);?>"
 										type="text" class="input-small">
 								</div>
@@ -99,7 +99,7 @@
 									<label class="">Air pressure</label>
 								</div>
 								<div class="span1  ">
-									<input name="air_pressure"
+									<input name="air_pressure" onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['AirPressure']);?>"
 										type="text" class="input-small">
 								</div>
@@ -109,7 +109,7 @@
 									<label class="">Temparature</label>
 								</div>
 								<div class="span2  ">
-									<input name="air_temparature"
+									<input name="air_temparature" onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['Temparature']);?>"
 										type="text" class="input-small">
 								</div>
@@ -184,7 +184,7 @@
 									<label class="">Wave height</label>
 								</div>
 								<div class="span1  ">
-									<input name="wave_height"
+									<input name="wave_height" onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['WaveHeight']);?>"
 										type="text" class="input-small">
 								</div>
