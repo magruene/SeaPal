@@ -3,6 +3,12 @@
 <html lang="en" class="fuelux">
 <?php include("header.php")?>
 <body>
+	<?php 
+	$con	=	mysql_connect("localhost","root","root");
+	mysql_select_db("webtech2013",	$con);
+	$result	=	mysql_query("SELECT	*	FROM	weatherdata");
+	$row	=	mysql_fetch_array($result);
+	?>
 	<div class="row-fluid">
 		<div class="span6 offset3 ">
 
@@ -33,7 +39,7 @@
 					</button>
 				</div>
 			</div>
-			<form method="post" action="save_values.php">
+			<form method="post" action="saveData.php">
 				<div class="step-content">
 					<div class="step-pane active" id="step1">
 						<div class="progress progress-striped active">
@@ -48,7 +54,9 @@
 									<label class="">Wind strength</label>
 								</div>
 								<div class="span1  ">
-									<input name="wind_strength" type="text" class="input-small">
+									<input name="wind_strength"
+										value="<?php echo htmlentities($row['WindStrength']);?>"
+										type="text" class="input-small">
 								</div>
 							</div>
 							<div class="row-fluid ">
@@ -57,14 +65,22 @@
 								</div>
 								<div class="span1  ">
 									<select name="wind_direction">
-										<option value="North">North</option>
-										<option value="East">East</option>
-										<option value="West">West</option>
-										<option value="South">South</option>
-										<option value="North-East">North-East</option>
-										<option value="North-West">North-West</option>
-										<option value="South-East">South-East</option>
-										<option value="South-West">South-West</option>
+										<option value="North"
+										<?php echo htmlentities($row['WindDirection']) == 'North' ? ' selected="selected"' : '';?>>North</option>
+										<option value="East"
+										<?php echo htmlentities($row['WindDirection']) == 'East' ? ' selected="selected"' : '';?>>East</option>
+										<option value="West"
+										<?php echo htmlentities($row['WindDirection']) == 'West' ? ' selected="selected"' : '';?>>West</option>
+										<option value="South"
+										<?php echo htmlentities($row['WindDirection']) == 'South' ? ' selected="selected"' : '';?>>South</option>
+										<option value="North-East"
+										<?php echo htmlentities($row['WindDirection']) == 'North-East' ? ' selected="selected"' : '';?>>North-East</option>
+										<option value="North-West"
+										<?php echo htmlentities($row['WindDirection']) == 'North-West' ? ' selected="selected"' : '';?>>North-West</option>
+										<option value="South-East"
+										<?php echo htmlentities($row['WindDirection']) == 'South-East' ? ' selected="selected"' : '';?>>South-East</option>
+										<option value="South-West"
+										<?php echo htmlentities($row['WindDirection']) == 'South-West' ? ' selected="selected"' : '';?>>South-West</option>
 									</select>
 								</div>
 							</div>
@@ -83,7 +99,9 @@
 									<label class="">Air pressure</label>
 								</div>
 								<div class="span1  ">
-									<input name="air_pressure" type="text" class="input-small">
+									<input name="air_pressure"
+										value="<?php echo htmlentities($row['AirPressure']);?>"
+										type="text" class="input-small">
 								</div>
 							</div>
 							<div class="row-fluid ">
@@ -91,15 +109,21 @@
 									<label class="">Temparature</label>
 								</div>
 								<div class="span2  ">
-									<input name="air_temparature" type="text" class="input-small">
+									<input name="air_temparature"
+										value="<?php echo htmlentities($row['Temparature']);?>"
+										type="text" class="input-small">
 								</div>
 								<div class="span1  ">
 									<label class="">Unit</label>
 								</div>
 								<div class="span1  ">
 									<select name="temparature_unit">
-										<option value="C">Celcius</option>
-										<option value="F">Fahrenheit</option>
+										<option value="C"
+										<?php echo htmlentities($row['Unit']) == 'C' ? ' selected="selected"' : '';?>>
+											Celcius</option>
+										<option value="F"
+										<?php echo htmlentities($row['Unit']) == 'F' ? ' selected="selected"' : '';?>>
+											Fahrenheit</option>
 									</select>
 								</div>
 							</div>
@@ -118,8 +142,14 @@
 									<label class="">Clouds</label>
 								</div>
 								<div class="span1  ">
-									<select name="clouds" id="clouds"><option value="n">No</option>
-										<option value="y">Yes</option>
+									<select name="clouds" id="clouds"><option value="n"
+									<?php echo htmlentities($row['Clouds']) == 'n' ? ' selected="selected"' : '';?>>
+											No</option>
+										<option value="y"
+										
+										<option value="n"
+										<?php echo htmlentities($row['Clouds']) == 'y' ? ' selected="selected"' : '';?>>
+											Yes</option>
 									</select>
 								</div>
 							</div>
@@ -128,9 +158,15 @@
 									<label class="">Rain</label>
 								</div>
 								<div class="span1  ">
-									<select name="rain" id="rain"><option value="n">No</option>
-										<option value="y">Yes</option>
-									</select>
+									<select name="rain" id="rain"><option value="n"<option
+											value="n"
+											<?php echo htmlentities($row['Rain']) == 'n' ? ' selected="selected"' : '';?>>
+											No
+										</option><option value="y"<option value="n"
+										<?php echo htmlentities($row['Rain']) == 'y' ? ' selected="selected"' : '';?>>
+											Yes
+									
+									</option></select>
 								</div>
 							</div>
 						</div>
@@ -148,7 +184,9 @@
 									<label class="">Wave height</label>
 								</div>
 								<div class="span1  ">
-									<input name="wave_height" type="text" class="input-small">
+									<input name="wave_height"
+										value="<?php echo htmlentities($row['WaveHeight']);?>"
+										type="text" class="input-small">
 								</div>
 							</div>
 							<div class="row-fluid ">
@@ -157,14 +195,30 @@
 								</div>
 								<div class="span1  ">
 									<select name="wave_direction">
-										<option value="North">North</option>
-										<option value="East">East</option>
-										<option value="West">West</option>
-										<option value="South">South</option>
-										<option value="North-East">North-East</option>
-										<option value="North-West">North-West</option>
-										<option value="South-East">South-East</option>
-										<option value="South-West">South-West</option>
+										<option value="North"
+										<?php echo htmlentities($row['WaveDirection']) == 'North' ? ' selected="selected"' : '';?>>
+											North</option>
+										<option value="East"
+										<?php echo htmlentities($row['WaveDirection']) == 'East' ? ' selected="selected"' : '';?>>
+											East</option>
+										<option value="West"
+										<?php echo htmlentities($row['WaveDirection']) == 'West' ? ' selected="selected"' : '';?>>
+											West</option>
+										<option value="South"
+										<?php echo htmlentities($row['WaveDirection']) == 'South' ? ' selected="selected"' : '';?>>
+											South</option>
+										<option value="North-East"
+										<?php echo htmlentities($row['WaveDirection']) == 'North-East' ? ' selected="selected"' : '';?>>
+											North-East</option>
+										<option value="North-West"
+										<?php echo htmlentities($row['WaveDirection']) == 'North-West' ? ' selected="selected"' : '';?>>
+											North-West</option>
+										<option value="South-East"
+										<?php echo htmlentities($row['WaveDirection']) == 'South-East' ? ' selected="selected"' : '';?>>
+											South-East</option>
+										<option value="South-West"
+										<?php echo htmlentities($row['WaveDirection']) == 'South-West' ? ' selected="selected"' : '';?>>
+											South-West</option>
 									</select>
 								</div>
 							</div>
@@ -183,8 +237,9 @@
 									<label class="">Date and time</label>
 								</div>
 								<div class="span1  ">
-									<input type="text" class="input-normal" name="date"
-										id="datepicker" />
+									<input type="text"
+										value="<?php echo htmlentities($row['DateTime']);?>"
+										class="input-normal" name="date" id="datepicker" />
 								</div>
 							</div>
 							<div class="row-fluid ">
@@ -198,10 +253,3 @@
 	</div>
 </body>
 </html>
-
-<?php
-$hit_count = @file_get_contents('count.txt');
-echo $hit_count;
-$hit_count++;
-@file_put_contents('count.txt', $hit_count);
-?>
