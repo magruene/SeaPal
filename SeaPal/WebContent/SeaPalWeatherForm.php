@@ -54,9 +54,11 @@
 									<label class="">Wind strength</label>
 								</div>
 								<div class="span1  ">
-									<input name="wind_strength" onkeypress="return isNumberKey(event);"
-										value="<?php echo htmlentities($row['WindStrength']);?>"
-										type="text" class="input-small">
+									0<input id="sl1" style="display: none" name="wind_strength"
+										type="text" class=".span2" value="" data-slider-min="0"
+										data-slider-max="12" data-slider-step="1"
+										data-slider-value="0" data-slider-selection="after"
+										>12
 								</div>
 							</div>
 							<div class="row-fluid ">
@@ -99,7 +101,8 @@
 									<label class="">Air pressure</label>
 								</div>
 								<div class="span1  ">
-									<input name="air_pressure" onkeypress="return isNumberKey(event);"
+									<input name="air_pressure"
+										onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['AirPressure']);?>"
 										type="text" class="input-small">
 								</div>
@@ -109,7 +112,8 @@
 									<label class="">Temparature</label>
 								</div>
 								<div class="span2  ">
-									<input name="air_temparature" onkeypress="return isNumberKey(event);"
+									<input name="air_temparature"
+										onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['Temparature']);?>"
 										type="text" class="input-small">
 								</div>
@@ -158,15 +162,17 @@
 									<label class="">Rain</label>
 								</div>
 								<div class="span1  ">
-									<select name="rain" id="rain"><option value="n"<option
-											value="n"
-											<?php echo htmlentities($row['Rain']) == 'n' ? ' selected="selected"' : '';?>>
-											No
-										</option><option value="y"<option value="n"
+									<select name="rain" id="rain"><option value="n"
+										
+										<option value="n"
+										<?php echo htmlentities($row['Rain']) == 'n' ? ' selected="selected"' : '';?>>
+											No</option>
+										<option value="y"
+										
+										<option value="n"
 										<?php echo htmlentities($row['Rain']) == 'y' ? ' selected="selected"' : '';?>>
-											Yes
-									
-									</option></select>
+											Yes</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -184,7 +190,8 @@
 									<label class="">Wave height</label>
 								</div>
 								<div class="span1  ">
-									<input name="wave_height" onkeypress="return isNumberKey(event);"
+									<input name="wave_height"
+										onkeypress="return isNumberKey(event);"
 										value="<?php echo htmlentities($row['WaveHeight']);?>"
 										type="text" class="input-small">
 								</div>

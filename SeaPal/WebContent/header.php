@@ -1,4 +1,5 @@
 <head>
+
 <link rel="stylesheet" href="css/timepicker.css" />
 <link
 	href="http://exacttarget.github.com/fuelux/vendor/fuelux/css/fuelux.css"
@@ -6,11 +7,10 @@
 <link href="http://fuelcdn.com/fuelux-imh/2.2/css/fuelux-responsive.css"
 	rel="stylesheet" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-
+<link rel="stylesheet" href="css/slider.css" />
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"
 	type="text/javascript"></script>
@@ -25,6 +25,7 @@
 <script
 	src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 <script src="js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js" />
 <script>
 	$(function() {
 		$('#datepicker').datetimepicker({
@@ -33,6 +34,15 @@
 	});
 	});
 </script>
+<script>
+$(function(){
+$('#sl1').slider({
+  formater: function(value) {
+    return 'Current value: '+value;
+  }
+});
+});
+</script>
 <script type="text/javascript">
 function isNumberKey(evt) {
 	var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -40,6 +50,6 @@ function isNumberKey(evt) {
 		return false;
 
 	return true;
-}
+};
 </script>
 </head>
