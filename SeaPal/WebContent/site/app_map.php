@@ -1,39 +1,53 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="en" class="fuelux">
 <head>
 
 <!-- Header -->
 <?php include('_include/header.php'); ?>
 <link href="../css/app/map.css" rel="stylesheet" type="text/css" />
 <link href="../css/app/contextMenu.css" rel="stylesheet" type="text/css" />
-<script src="../js/jquery/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script src="http://openweathermap.org/js/OWM.GoogleMap.1.0.js"></script>
+<script>
 $(function(){
 	$('.alert .close').live("click", function(e) {
-
+	fetchWeatherWithCoords(39,139);
     $(this).parent().hide();
-    window.setTimeout("showWeather()", 10000);
+    window.setTimeout("showWeather()", 1000);
 });});
 </script>
 </head>
 <body onload="initialize();">
-
 	<!-- Navigation -->
 	<?php include('_include/navigation.php'); ?>
 
 	<!-- Container -->
 	<div class="container-fluid">
-
+		
 		<!-- App Navigation -->
 		<?php include('_include/navigation_app.php'); ?>
-		<div class="alert fade in" id="login-error" style="display: none;">
-			<button type="button" class="close">×</button>
-			Your error message goes here...
+		<div class="alert fade in" id="reminder" style="display: none;">
+			<button type="button" class="close">x</button>
+			It's about time to make another logbook entry? Click <a onclick="fetchWeatherWithCoords(); $('#myModal').modal('show')" href="#">here</a> or just ignore the message....
 		</div>
+		
+          <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel">Weather Data</h3>
+            </div>
+            <div class="modal-body">
+			The below form was already filled with the current weather data.
+			As we know, nobody's perfect, so please check the fields and add/edit if deemed neccessary.   
+				<?php include('app_weather_modal.php'); ?>
+			</div>
+            <div class="modal-footer">
+              <button class="btn" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
 		<div id="images">
 		<!-- Route Menu -->
 		<div id="routeMenuContainer">

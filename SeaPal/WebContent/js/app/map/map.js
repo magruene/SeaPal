@@ -87,7 +87,7 @@ function MarkerWithInfobox(marker, infobox, counter) {
 
 //
 function showWeather() {
-	$("#login-error").show();
+	$("#reminder").show();
 	if (map.getZoom() > 7) {
 
 	} else {
@@ -100,9 +100,67 @@ function showWeather() {
 
 }
 
+function js_traverse(jsonData) {
+    var type = typeof jsonData; 
+    if (type == "object") {
+        for (var key in jsonData) {
+			type = typeof jsonData[key];
+			if (type != "object") {
+				console.log("Current key: " + key);
+				if (key == "main") {
+					if (jsonData[key] == "Rain") {
+						$('select[name=clouds]').val("y");
+						$('select[name=rain]').val("y");
+					} else if (jsonData[key] == "Clear") {
+						$('select[name=clouds]').val("n");
+						$('select[name=rain]').val("n");
+					} else {
+						if ($('input[name=weather_info]').length > 0){
+							
+						} else {
+							$('select[name=clouds]').after('<input name="weather_info" onkeypress="return isNumberKey(event);" value="' + jsonData[key] + '" type="text" class="input-small">');
+							$('select[name=clouds]').remove();
+							$('select[name=rain]').remove();
+						}
+					}
+				
+				console.log(key + " equals lon or sunset"); 
+				alert("key: " + jsonData + key + " --> " + jsonData[key]);
+				} else {
+				alert("NOPE");
+				}
+			}
+            js_traverse(jsonData[key]);
+        }
+    }
+}
+
+function fetchWeatherWithCoords() {
+  
+	var latLng = map.getCenter();
+	console.log("Have some object");
+	var lat = latLng.lat();
+	console.log("Have " + lat);
+	var lng = latLng.lng();
+	console.log("Have " + lng);
+	
+	
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?callback=?&lat="+lat + "&lon=" + lng + "&units=metric&cnt=1",
+        function(json){
+		console.log("Will return object: " + json);
+			prepareWeatherForm(json);
+        });
+}
+
+function prepareWeatherForm(json) {
+	var jsonData = json;
+	console.log("Have object: " + jsonData);
+	js_traverse(jsonData);
+}
+
 // initialize map and all event listeners
 function initialize() {
-	window.setTimeout("showWeather()", 10000);
+	window.setTimeout("showWeather()", 1000);
 
 	// set different map types
 	var mapTypeIds = [ "roadmap", "satellite", "OSM" ];

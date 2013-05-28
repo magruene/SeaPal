@@ -1,29 +1,11 @@
-<html lang="en" class="fuelux">
-<head>
-<!-- Header -->
-	  	<?php include('_include/header.php');?>
-
-</head>
-<body>
-	  	<!-- Navigation -->
-    	<?php include('_include/navigation.php'); ?>
-
 	<?php 
 	$con	=	mysql_connect("localhost","root","root");
 	mysql_select_db("webtech2013",	$con);
 	$result	=	mysql_query("SELECT	*	FROM	weatherdata");
 	$row	=	mysql_fetch_array($result);
 	?>
-	<!-- App Navigation -->
-    		<?php include('_include/navigation_app.php'); ?>
-    		
 	<div class="row-fluid">
-		<div class="span6 offset3 ">
-
-			<div class="alert alert-success">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				Saved changes successfully!
-			</div>
+		<div class="span12 ">
 			<div id="MyWizard" class="wizard">
 				<ul class="steps">
 					<li data-target="#step1" class="active"><span
@@ -62,10 +44,10 @@
 									<label class="">Wind strength</label>
 								</div>
 								<div class="span1  ">
-									0<input id="sl1" style="display: none" name="wind_strength"
-										type="text" class=".span2" value="" data-slider-min="0"
-										data-slider-max="12" data-slider-step="1"
-										data-slider-value="0" data-slider-selection="after">12
+									<input name="wind_strength"
+										onkeypress="return isNumberKey(event);"
+										value="<?php echo htmlentities($row['WindStrength']);?>"
+										type="text" class="input-small">
 								</div>
 							</div>
 							<div class="row-fluid ">
@@ -256,9 +238,6 @@
 										class="input-normal" name="date" id="datepicker" />
 								</div>
 							</div>
-							<div class="row-fluid ">
-								<button class="btn btn-success  ">Save</button>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -292,5 +271,3 @@ function isNumberKey(evt) {
 	return true;
 };
 </script>
-</body>
-</html>

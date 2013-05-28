@@ -5,7 +5,6 @@ $db_selected = mysql_select_db('webtech2013', $con);
 if (!$db_selected) {
 	if	(mysql_query("CREATE	DATABASE	webtech2013",$con))
 	{
-		echo	"Database	created";
 	}
 	else
 	{		echo	"Error	creating database:	"	.	mysql_error();

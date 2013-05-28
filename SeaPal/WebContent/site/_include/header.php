@@ -15,10 +15,21 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'/>  
 	
 	<!-- Styles -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link href="../css/bootstrap/bootstrap.css" rel="stylesheet">
     <link href="../css/bootstrap/layout.css" rel="stylesheet">
     <link href="../css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
+	<link rel="stylesheet"	href="../css/app/timepicker.css" />
+	<link href="../css/app/fuelux.css"	rel="stylesheet" />
+	<link href="../css/app/fuelux-responsive.css" rel="stylesheet" />
     
     <!-- Java-Script -->
     <script src="../js/jquery/jquery.js" type="text/javascript"></script>
-    <script src="../js/site/scroll.js" type="text/javascript"></script>   
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script	src="../js/jquery/jquery-ui-timepicker-addon.js"></script>
+    <script src="../js/site/scroll.js" type="text/javascript"></script>  
+	<script	src="../js/app/fuelux/loader.min.js" type="text/javascript"></script>
+	<script	type="text/javascript" src="../js/bootstrap/bootstrap-tab.js"></script>
+	
+
+

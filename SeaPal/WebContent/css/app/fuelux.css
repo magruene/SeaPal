@@ -5193,9 +5193,9 @@ textarea.span1,
 .fuelux .modal {
   position: fixed;
   top: 10%;
-  left: 50%;
+  left: 42%;
   z-index: 1050;
-  width: 560px;
+  width: 860px;
   margin-left: -280px;
   background-color: #ffffff;
   border: 1px solid #999;
@@ -5222,7 +5222,7 @@ textarea.span1,
 }
 
 .fuelux .modal.fade.in {
-  top: 10%;
+  top: 50%;
 }
 
 .fuelux .modal-header {
