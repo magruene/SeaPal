@@ -94,7 +94,6 @@ function showWeather() {
 		var flickerAPI = "http://api.openweathermap.org/data/2.5/forecast?lat=28.505505380958056&lon=35.84980487823486&cnt=1";
 		$.getJSON(flickerAPI, {}).done(function(data) {
 
-			alert(data);
 		});
 	}
 
@@ -123,11 +122,7 @@ function js_traverse(jsonData) {
 							$('select[name=rain]').remove();
 						}
 					}
-				
-				console.log(key + " equals lon or sunset"); 
-				alert("key: " + jsonData + key + " --> " + jsonData[key]);
 				} else {
-				alert("NOPE");
 				}
 			}
             js_traverse(jsonData[key]);
@@ -158,6 +153,8 @@ function prepareWeatherForm(json) {
 	js_traverse(jsonData);
 }
 
+var markersArray = [];
+var overlayMaps = [];
 // initialize map and all event listeners
 function initialize() {
 	window.setTimeout("showWeather()", 1000);
@@ -193,15 +190,23 @@ function initialize() {
 
 	// initialize map
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	console.log("TESTSTETSTETSTSTSETSTSETESTE");
+	
+	
+	
 	google.maps.event
 			.addListener(
 					map,
 					'idle',
 					function() {
 						var bounds = map.getBounds();
+						console.log("have bounds: " + bounds);
 						var ln = bounds.getNorthEast();
+						console.log("ln: " + ln);
 						var ln2 = bounds.getSouthWest();
+						console.log("ln2: " + ln2);
 						var z = map.getZoom();
+						console.log("zoom:" + z);
 						var myhre = 'http://openweathermap.org/data/getrect?type=city&cnt=200&lat1='
 								+ ln2.lat()
 								+ '&lat2='
@@ -211,7 +216,40 @@ function initialize() {
 								+ '&lng2='
 								+ ln.lng()
 								+ "&cluster=yes&zoom=" + z + "&callback=?";
-						$.getJSON(myhre, getData);
+						
+						$.getJSON(myhre, function(json){
+							console.log("test6465642343274526");
+							station_list = json;
+							console.log(station_list.cod);
+							if(station_list.cod != '200') {
+								console.log('Test: '+ JSONobject.message);
+								return;
+							}
+
+							deleteOverlays();
+							console.log("done with deleteOverlays");
+							infowindow = new google.maps.InfoWindow({
+								content: "place holder",
+								disableAutoPan: false
+							});
+
+
+						for(var i = 0; i <  station_list.list.length; i ++){
+							var p = new google.maps.LatLng(station_list.list[i].lat, station_list.list[i].lng);
+							console.log(p);
+							var temp = station_list.list[i].temp -273;
+							temp = Math.round(temp*100)/100;
+							console.log(temp);
+							img = GetWeatherIcon(station_list.list[i]);
+							var html_b = '<div style="background-color:#ffffff; opacity:0.7;border:1px solid #777777;" >\
+								<img src="http://openweathermap.org'+img+'" height="50px" width="60px" style="float: left; "><b>'+temp+'C</b></div>';
+							console.log(html_b);
+							var m = new StationMarker(p, map, html_b);
+							m.station_id=i; 
+							markersArray.push(m);
+							console.log(markersArray);
+						  }
+							});
 					});
 
 	// set client position
@@ -237,6 +275,40 @@ function initialize() {
 		name : "OpenStreetMap",
 		maxZoom : 18
 	}));
+	
+	
+	overlayMaps = [
+	                   {
+		getTileUrl : function(coord, zoom) {
+			console.log("http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
+					+ coord.x + "/" + coord.y + ".png");
+			return "http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
+					+ coord.x + "/" + coord.y + ".png";
+		},
+		tileSize : new google.maps.Size(256, 256),
+		opacity: 0.6,
+		name : "OpenSeaMap",
+		maxZoom : 18
+	}, {
+	                       getTileUrl: function(coord, zoom){
+	                           return 'http://gisapps.co.union.nc.us:8080/geoserver/gwc/service/gmaps?layers=uc%3Asubdivisions&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y + '&format=image/png8';
+	                       },
+	                       tileSize: new google.maps.Size(256, 256),
+	                       isPng: true
+	                   }
+	               ];
+	
+//	map.overlayMapTypes.push(new google.maps.ImageMapType({
+//		getTileUrl : function(coord, zoom) {
+//			console.log("http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
+//					+ coord.x + "/" + coord.y + ".png");
+//			return "http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
+//					+ coord.x + "/" + coord.y + ".png";
+//		},
+//		tileSize : new google.maps.Size(256, 256),
+//		name : "OpenSeaMap",
+//		maxZoom : 18
+//	}));
 
 	google.maps.event.addListener(currentPositionMarker, 'position_changed',
 			function() {
@@ -290,6 +362,80 @@ function initialize() {
 	};
 	overlay.setMap(map);
 
+//	
+//	
+//	
+//		var precipitation = new OpenLayers.Layer.XYZ(
+//		"Precipitation forecasts",
+//		"http://${s}.tile.openweathermap.org/map/precipitation/${z}/${x}/${y}.png",
+//		{
+//			numZoomLevels: 19, 
+//			isBaseLayer: false,
+//			opacity: 0.6,
+//			sphericalMercator: true
+//		}
+//	);
+//	/*
+//	precipitation.events.register('visibilitychanged', precipitation, function (e) {    
+//		if(precipitation.getVisibility())	$("#img_PR").show();
+//		else	$("#img_PR").hide();
+//	});  */
+//
+//	var clouds = new OpenLayers.Layer.XYZ(
+//		"Clouds forecasts",
+//		"http://${s}.tile.openweathermap.org/map/clouds/${z}/${x}/${y}.png",
+//		{
+//			numZoomLevels: 19, 
+//			isBaseLayer: false,
+//			opacity: 0.7,
+//			sphericalMercator: true
+//
+//		}
+//	);
+//	clouds.setVisibility(false);
+//	/*
+//	$("#img_NT").hide();
+//	clouds.events.register('visibilitychanged', clouds, function (e) {    
+//		if(clouds.getVisibility())	$("#img_NT").show();
+//		else	$("#img_NT").hide();
+//	}); 
+//*/
+//	var pressure_contour = new OpenLayers.Layer.XYZ(
+//		"Pressure",
+//		"http://${s}.tile.openweathermap.org/map/pressure_cntr/${z}/${x}/${y}.png",
+//		{
+//			numZoomLevels: 19, 
+//			isBaseLayer: false,
+//			opacity: 0.4,
+//			sphericalMercator: true
+//
+//		}
+//	);
+//	pressure_contour.setVisibility(false);
+//	var radar = new OpenLayers.Layer.OWMRadar( "Radar (USA and Canada)",{isBaseLayer: false, opacity: 0.6} );
+//	radar.setVisibility(false);
+//	$("#img_RADAR").hide();
+//
+//	radar.events.register('visibilitychanged', radar, function (e) {    
+//		if(radar.getVisibility())	$("#img_RADAR").show();
+//		else	$("#img_RADAR").hide();
+//	}); 
+//
+//	map.addLayer(precipitation);
+//	map.addLayer(clouds);
+//	map.addLayer(pressure_contour);
+//	
+//	
+	
+	// Layers switcher
+	var ls = new OpenLayers.Control.LayerSwitcher({'ascending':false});
+	map.addControl(ls);
+	ls.maximizeControl();
+	
+	
+	
+	
+	
 	// click on map
 	google.maps.event.addListener(map, 'click', function(event) {
 
@@ -308,6 +454,62 @@ function initialize() {
 			noToggleOfFollowCurrentPositionButton = false;
 		}
 	});
+}
+
+function getData() {
+	console.log("penis");
+}
+
+function getData(s)
+{
+	console.log("penis");
+	station_list = s;
+
+	if(station_list.cod != '200') {
+		console.log('Test: '+ JSONobject.message);
+		return;
+	}
+
+	deleteOverlays();
+
+	infowindow = new google.maps.InfoWindow({
+		content: "place holder",
+		disableAutoPan: false
+	});
+
+
+for(var i = 0; i <  station_list.list.length; i ++){
+	var p = new google.maps.LatLng(station_list.list[i].lat, station_list.list[i].lng);
+
+	var temp = station_list.list[i].temp -273;
+	temp = Math.round(temp*100)/100;
+
+	img = GetWeatherIcon(station_list.list[i]);
+	var html_b = temp+'C';
+
+	var m = new StationMarker(p, map, html_b);
+	m.station_id=i; 
+	markersArray.push(m);
+
+  }
+}
+
+var obj;
+
+function deleteOverlays() {
+  var temp_marker;
+  if (markersArray) {
+    for (i in markersArray) {
+	if(obj!=markersArray[i]) {
+	      markersArray[i].setMap(null);
+	}
+    }
+    markersArray.length = 0;
+    if( temp_marker != undefined ) {
+	markersArray.push(temp_marker);
+	iActiveMarker = -1;
+    }
+  }
 }
 
 // temporary marker context menu ----------------------------------------- //

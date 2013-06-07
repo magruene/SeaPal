@@ -30,6 +30,8 @@
     <script src="../js/site/scroll.js" type="text/javascript"></script>  
 	<script	src="../js/app/fuelux/loader.min.js" type="text/javascript"></script>
 	<script	type="text/javascript" src="../js/bootstrap/bootstrap-tab.js"></script>
+	    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+    <script src="http://openweathermap.org/js/OWM.OpenLayers.1.3.6.js" ></script>
 	
 
 
