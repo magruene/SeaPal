@@ -99,10 +99,12 @@ function showWeather() {
 
 }
 
+//This function will be called recursively to get to every Key value.
+
 function js_traverse(jsonData) {
-    var type = typeof jsonData; 
-    if (type == "object") {
-        for (var key in jsonData) {
+	var type = typeof jsonData;
+	if (type == "object") {
+		for ( var key in jsonData) {
 			type = typeof jsonData[key];
 			if (type != "object") {
 				console.log("Current key: " + key);
@@ -114,10 +116,14 @@ function js_traverse(jsonData) {
 						$('select[name=clouds]').val("n");
 						$('select[name=rain]').val("n");
 					} else {
-						if ($('input[name=weather_info]').length > 0){
-							
+						if ($('input[name=weather_info]').length > 0) {
+
 						} else {
-							$('select[name=clouds]').after('<input name="weather_info" onkeypress="return isNumberKey(event);" value="' + jsonData[key] + '" type="text" class="input-small">');
+							$('select[name=clouds]')
+									.after(
+											'<input name="weather_info" onkeypress="return isNumberKey(event);" value="'
+													+ jsonData[key]
+													+ '" type="text" class="input-small">');
 							$('select[name=clouds]').remove();
 							$('select[name=rain]').remove();
 						}
@@ -125,31 +131,28 @@ function js_traverse(jsonData) {
 				} else {
 				}
 			}
-            js_traverse(jsonData[key]);
-        }
-    }
+			js_traverse(jsonData[key]);
+		}
+	}
 }
 
+//Main function to get the json-data about the weather
 function fetchWeatherWithCoords() {
-  
+
 	var latLng = map.getCenter();
-	console.log("Have some object");
 	var lat = latLng.lat();
-	console.log("Have " + lat);
 	var lng = latLng.lng();
-	console.log("Have " + lng);
-	
-	
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?callback=?&lat="+lat + "&lon=" + lng + "&units=metric&cnt=1",
-        function(json){
+
+	$.getJSON("http://api.openweathermap.org/data/2.5/weather?callback=?&lat="
+			+ lat + "&lon=" + lng + "&units=metric&cnt=1", function(json) {
 		console.log("Will return object: " + json);
-			prepareWeatherForm(json);
-        });
+		prepareWeatherForm(json);
+	});
 }
 
+//call the recursiv method
 function prepareWeatherForm(json) {
 	var jsonData = json;
-	console.log("Have object: " + jsonData);
 	js_traverse(jsonData);
 }
 
@@ -190,10 +193,7 @@ function initialize() {
 
 	// initialize map
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-	console.log("TESTSTETSTETSTSTSETSTSETESTE");
-	
-	
-	
+
 	google.maps.event
 			.addListener(
 					map,
@@ -216,40 +216,50 @@ function initialize() {
 								+ '&lng2='
 								+ ln.lng()
 								+ "&cluster=yes&zoom=" + z + "&callback=?";
-						
-						$.getJSON(myhre, function(json){
-							console.log("test6465642343274526");
-							station_list = json;
-							console.log(station_list.cod);
-							if(station_list.cod != '200') {
-								console.log('Test: '+ JSONobject.message);
-								return;
-							}
 
-							deleteOverlays();
-							console.log("done with deleteOverlays");
-							infowindow = new google.maps.InfoWindow({
-								content: "place holder",
-								disableAutoPan: false
-							});
+						$
+								.getJSON(
+										myhre,
+										function(json) {
+											console.log("test6465642343274526");
+											station_list = json;
+											console.log(station_list.cod);
+											if (station_list.cod != '200') {
+												console.log('Test: '
+														+ JSONobject.message);
+												return;
+											}
 
+											deleteOverlays();
+											console
+													.log("done with deleteOverlays");
+											infowindow = new google.maps.InfoWindow(
+													{
+														content : "place holder",
+														disableAutoPan : false
+													});
 
-						for(var i = 0; i <  station_list.list.length; i ++){
-							var p = new google.maps.LatLng(station_list.list[i].lat, station_list.list[i].lng);
-							console.log(p);
-							var temp = station_list.list[i].temp -273;
-							temp = Math.round(temp*100)/100;
-							console.log(temp);
-							img = GetWeatherIcon(station_list.list[i]);
-							var html_b = '<div style="background-color:#ffffff; opacity:0.7;border:1px solid #777777;" >\
-								<img src="http://openweathermap.org'+img+'" height="50px" width="60px" style="float: left; "><b>'+temp+'C</b></div>';
-							console.log(html_b);
-							var m = new StationMarker(p, map, html_b);
-							m.station_id=i; 
-							markersArray.push(m);
-							console.log(markersArray);
-						  }
-							});
+											for ( var i = 0; i < station_list.list.length; i++) {
+												var p = new google.maps.LatLng(
+														station_list.list[i].lat,
+														station_list.list[i].lng);
+												console.log(p);
+												var temp = station_list.list[i].temp - 273;
+												temp = Math.round(temp * 100) / 100;
+												console.log(temp);
+												img = GetWeatherIcon(station_list.list[i]);
+												var html_b = '<div id="openweather" style="background-color:#ffffff; opacity:0.7;border:1px solid #777777;" >\	 <img src="http://openweathermap.org'
+														+ img
+														+ '" height="50px" width="60px" style="float: left; "><b>'
+														+ temp + 'C</b></div>';
+												console.log(html_b);
+												var m = new StationMarker(p,
+														map, html_b);
+												m.station_id = i;
+												markersArray.push(m);
+												console.log(markersArray);
+											}
+										});
 					});
 
 	// set client position
@@ -275,40 +285,101 @@ function initialize() {
 		name : "OpenStreetMap",
 		maxZoom : 18
 	}));
-	
-	
+
 	overlayMaps = [
-	                   {
-		getTileUrl : function(coord, zoom) {
-			console.log("http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
-					+ coord.x + "/" + coord.y + ".png");
-			return "http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
-					+ coord.x + "/" + coord.y + ".png";
-		},
-		tileSize : new google.maps.Size(256, 256),
-		opacity: 0.6,
-		name : "OpenSeaMap",
-		maxZoom : 18
-	}, {
-	                       getTileUrl: function(coord, zoom){
-	                           return 'http://gisapps.co.union.nc.us:8080/geoserver/gwc/service/gmaps?layers=uc%3Asubdivisions&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y + '&format=image/png8';
-	                       },
-	                       tileSize: new google.maps.Size(256, 256),
-	                       isPng: true
-	                   }
-	               ];
-	
-//	map.overlayMapTypes.push(new google.maps.ImageMapType({
-//		getTileUrl : function(coord, zoom) {
-//			console.log("http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
-//					+ coord.x + "/" + coord.y + ".png");
-//			return "http://undefined.tile.openweathermap.org/map/precipitation/" + zoom + "/"
-//					+ coord.x + "/" + coord.y + ".png";
-//		},
-//		tileSize : new google.maps.Size(256, 256),
-//		name : "OpenSeaMap",
-//		maxZoom : 18
-//	}));
+			{
+				getTileUrl : function(coord, zoom) {
+					console
+							.log("http://undefined.tile.openweathermap.org/map/precipitation/"
+									+ zoom
+									+ "/"
+									+ coord.x
+									+ "/"
+									+ coord.y
+									+ ".png");
+					return "http://undefined.tile.openweathermap.org/map/precipitation/"
+							+ zoom + "/" + coord.x + "/" + coord.y + ".png";
+				},
+				tileSize : new google.maps.Size(256, 256),
+				opacity : 0.6,
+				name : "Precipitation forecasts",
+				maxZoom : 19
+			},
+			{
+				getTileUrl : function(coord, zoom) {
+					console
+							.log("http://undefined.tile.openweathermap.org/map/precipitation/"
+									+ zoom
+									+ "/"
+									+ coord.x
+									+ "/"
+									+ coord.y
+									+ ".png");
+					return "http://undefined.tile.openweathermap.org/map/clouds/"
+							+ zoom + "/" + coord.x + "/" + coord.y + ".png";
+				},
+				tileSize : new google.maps.Size(256, 256),
+				opacity : 0.7,
+				name : "Clouds forecast",
+				maxZoom : 19
+			},
+			{
+				getTileUrl : function(coord, zoom) {
+					console
+							.log("http://undefined.tile.openweathermap.org/map/precipitation/"
+									+ zoom
+									+ "/"
+									+ coord.x
+									+ "/"
+									+ coord.y
+									+ ".png");
+					return "http://undefined.tile.openweathermap.org/map/pressure_cntr/"
+							+ zoom + "/" + coord.x + "/" + coord.y + ".png";
+				},
+				tileSize : new google.maps.Size(256, 256),
+				opacity : 0.4,
+				name : "Pressure",
+				maxZoom : 19
+			},
+			{
+				getTileUrl : function(coord, zoom) {
+					return "http://www.openportguide.org/tiles/actual/air_temperature/5/"
+							+ zoom
+							+ "/"
+							+ coord.x
+							+ "/"
+							+ coord.y
+							+ ".png";
+				},
+				tileSize : new google.maps.Size(256, 256),
+				name : "Air Temprature",
+				opacity : 0.6,
+				maxZoom : 18
+			}, 
+			{
+				getTileUrl : function(coord, zoom) {
+					return "http://www.openportguide.org/tiles/actual/wind_vector/7/"
+							+ zoom + "/" + coord.x + "/" + coord.y + ".png";
+				},
+				tileSize : new google.maps.Size(256, 256),
+				name : "Wind Vector",
+				opacity : 0.6,
+				maxZoom : 18
+			}];
+
+	// map.overlayMapTypes.push(new google.maps.ImageMapType({
+	// getTileUrl : function(coord, zoom) {
+	// console.log("http://undefined.tile.openweathermap.org/map/precipitation/"
+	// + zoom + "/"
+	// + coord.x + "/" + coord.y + ".png");
+	// return "http://undefined.tile.openweathermap.org/map/precipitation/" +
+	// zoom + "/"
+	// + coord.x + "/" + coord.y + ".png";
+	// },
+	// tileSize : new google.maps.Size(256, 256),
+	// name : "OpenSeaMap",
+	// maxZoom : 18
+	// }));
 
 	google.maps.event.addListener(currentPositionMarker, 'position_changed',
 			function() {
@@ -332,110 +403,12 @@ function initialize() {
 		name : "OpenSeaMap",
 		maxZoom : 18
 	}));
-
-	map.overlayMapTypes
-			.push(new google.maps.ImageMapType(
-					{
-						getTileUrl : function(coord, zoom) {
-							return "http://www.openportguide.org/tiles/actual/air_temperature/5/"
-									+ zoom
-									+ "/"
-									+ coord.x
-									+ "/"
-									+ coord.y
-									+ ".png";
-						},
-						tileSize : new google.maps.Size(256, 256),
-						name : "OpenSeaMap",
-						maxZoom : 18
-					}));
-	map.overlayMapTypes.push(new google.maps.ImageMapType({
-		getTileUrl : function(coord, zoom) {
-			return "http://www.openportguide.org/tiles/actual/wind_vector/7/"
-					+ zoom + "/" + coord.x + "/" + coord.y + ".png";
-		},
-		tileSize : new google.maps.Size(256, 256),
-		name : "OpenSeaMap",
-		maxZoom : 18
-	}));
+	
 	overlay.draw = function() {
 	};
 	overlay.setMap(map);
 
-//	
-//	
-//	
-//		var precipitation = new OpenLayers.Layer.XYZ(
-//		"Precipitation forecasts",
-//		"http://${s}.tile.openweathermap.org/map/precipitation/${z}/${x}/${y}.png",
-//		{
-//			numZoomLevels: 19, 
-//			isBaseLayer: false,
-//			opacity: 0.6,
-//			sphericalMercator: true
-//		}
-//	);
-//	/*
-//	precipitation.events.register('visibilitychanged', precipitation, function (e) {    
-//		if(precipitation.getVisibility())	$("#img_PR").show();
-//		else	$("#img_PR").hide();
-//	});  */
-//
-//	var clouds = new OpenLayers.Layer.XYZ(
-//		"Clouds forecasts",
-//		"http://${s}.tile.openweathermap.org/map/clouds/${z}/${x}/${y}.png",
-//		{
-//			numZoomLevels: 19, 
-//			isBaseLayer: false,
-//			opacity: 0.7,
-//			sphericalMercator: true
-//
-//		}
-//	);
-//	clouds.setVisibility(false);
-//	/*
-//	$("#img_NT").hide();
-//	clouds.events.register('visibilitychanged', clouds, function (e) {    
-//		if(clouds.getVisibility())	$("#img_NT").show();
-//		else	$("#img_NT").hide();
-//	}); 
-//*/
-//	var pressure_contour = new OpenLayers.Layer.XYZ(
-//		"Pressure",
-//		"http://${s}.tile.openweathermap.org/map/pressure_cntr/${z}/${x}/${y}.png",
-//		{
-//			numZoomLevels: 19, 
-//			isBaseLayer: false,
-//			opacity: 0.4,
-//			sphericalMercator: true
-//
-//		}
-//	);
-//	pressure_contour.setVisibility(false);
-//	var radar = new OpenLayers.Layer.OWMRadar( "Radar (USA and Canada)",{isBaseLayer: false, opacity: 0.6} );
-//	radar.setVisibility(false);
-//	$("#img_RADAR").hide();
-//
-//	radar.events.register('visibilitychanged', radar, function (e) {    
-//		if(radar.getVisibility())	$("#img_RADAR").show();
-//		else	$("#img_RADAR").hide();
-//	}); 
-//
-//	map.addLayer(precipitation);
-//	map.addLayer(clouds);
-//	map.addLayer(pressure_contour);
-//	
-//	
-	
-	// Layers switcher
-	var ls = new OpenLayers.Control.LayerSwitcher({'ascending':false});
-	map.addControl(ls);
-	ls.maximizeControl();
-	
-	
-	
-	
-	
+
 	// click on map
 	google.maps.event.addListener(map, 'click', function(event) {
 
@@ -454,62 +427,167 @@ function initialize() {
 			noToggleOfFollowCurrentPositionButton = false;
 		}
 	});
+	
+	addDropDown(map);
 }
 
-function getData() {
-	console.log("penis");
+function addDropDown(map) {
+    
+    //start process to set up custom drop down
+    
+    //create the check box items
+    var checkOptions = {
+    		gmap: map,
+    		title: "Precipitation forecasts",
+    		id: "Precipitationforecasts",
+    		label: "Precipitation forecasts",
+    		action: function(){
+    			addOrRemoveWeatherLayer(0);
+    		}        		        		
+    }
+    var check1 = new checkBox(checkOptions);
+    
+    var checkOptions2 = {
+    		gmap: map,
+    		title: "Clouds forecast",
+    		id: "Cloudsforecast",
+    		label: "Clouds forecast",
+    		action: function(){
+    			addOrRemoveWeatherLayer(1);
+    		}        		        		
+    }
+    var check2 = new checkBox(checkOptions2);
+    
+    var checkOptions3 = {
+    		gmap: map,
+    		title: "Pressure",
+    		id: "Pressure",
+    		label: "Pressure",
+    		action: function(){
+    			addOrRemoveWeatherLayer(2);
+    		}        		        		
+    }
+    var check3 = new checkBox(checkOptions3);
+    
+    var checkOptions4 = {
+    		gmap: map,
+    		title: "Air Temprature",
+    		id: "AirTemprature",
+    		label: "Air Temprature",
+    		action: function(){
+    			addOrRemoveWeatherLayer(3);
+    		}        		        		
+    }
+    var check4 = new checkBox(checkOptions4);
+    
+    var checkOptions5 = {
+    		gmap: map,
+    		title: "Wind Vector",
+    		id: "WindVector",
+    		label: "Wind Vector",
+    		action: function(){
+    			addOrRemoveWeatherLayer(4);
+    		}        		        		
+    }
+    var check5 = new checkBox(checkOptions5);
+    
+    //create the input box items
+    
+    //possibly add a separator between controls        
+    var sep = new separator();
+    
+    //put them all together to create the drop down       
+    var ddDivOptions = {
+    	items: [check1, check2, check3, check4, check5],
+    	id: "myddOptsDiv"        		
+    }
+    
+    var dropDownDiv = new dropDownOptionsDiv(ddDivOptions);               
+            
+    var dropDownOptions = {
+    		gmap: map,
+    		name: 'Layer Switch',
+    		id: 'ddControl',
+    		title: 'A custom drop down select with mixed elements',
+    		position: google.maps.ControlPosition.TOP_RIGHT,
+    		dropDown: dropDownDiv 
+    }
+    
+    var dropDown1 = new dropDownControl(dropDownOptions); 
+  }
+
+
+var checkboxes = {
+	    0 : false,
+	    1 : false,
+	    2 : false,
+	    3 : false,
+	    4 : false
+	};
+function addOrRemoveWeatherLayer(id) {
+	console.log("in magic method: " + checkboxes[id]);
+	if (!checkboxes[id]){
+        var overlayMap = new google.maps.ImageMapType(overlayMaps[id]);
+        map.overlayMapTypes.setAt(id, overlayMap);
+        checkboxes[id] = true;
+    } else {
+        if (map.overlayMapTypes.getLength() > 0){
+            map.overlayMapTypes.setAt(id, null);
+            checkboxes[id] = false;
+        }
+    }
 }
 
-function getData(s)
-{
-	console.log("penis");
+
+function getData(s) {
+
 	station_list = s;
 
-	if(station_list.cod != '200') {
-		console.log('Test: '+ JSONobject.message);
+	if (station_list.cod != '200') {
+		console.log('Test: ' + JSONobject.message);
 		return;
 	}
 
 	deleteOverlays();
 
 	infowindow = new google.maps.InfoWindow({
-		content: "place holder",
-		disableAutoPan: false
+		content : "place holder",
+		disableAutoPan : false
 	});
 
+	for ( var i = 0; i < station_list.list.length; i++) {
+		var p = new google.maps.LatLng(station_list.list[i].lat,
+				station_list.list[i].lng);
 
-for(var i = 0; i <  station_list.list.length; i ++){
-	var p = new google.maps.LatLng(station_list.list[i].lat, station_list.list[i].lng);
+		var temp = station_list.list[i].temp - 273;
+		temp = Math.round(temp * 100) / 100;
 
-	var temp = station_list.list[i].temp -273;
-	temp = Math.round(temp*100)/100;
+		img = GetWeatherIcon(station_list.list[i]);
+		var html_b = temp + 'C';
 
-	img = GetWeatherIcon(station_list.list[i]);
-	var html_b = temp+'C';
+		var m = new StationMarker(p, map, html_b);
+		m.station_id = i;
+		markersArray.push(m);
 
-	var m = new StationMarker(p, map, html_b);
-	m.station_id=i; 
-	markersArray.push(m);
-
-  }
+	}
 }
 
 var obj;
 
 function deleteOverlays() {
-  var temp_marker;
-  if (markersArray) {
-    for (i in markersArray) {
-	if(obj!=markersArray[i]) {
-	      markersArray[i].setMap(null);
+	var temp_marker;
+	if (markersArray) {
+		for (i in markersArray) {
+			if (obj != markersArray[i]) {
+				markersArray[i].setMap(null);
+			}
+		}
+		markersArray.length = 0;
+		if (temp_marker != undefined) {
+			markersArray.push(temp_marker);
+			iActiveMarker = -1;
+		}
 	}
-    }
-    markersArray.length = 0;
-    if( temp_marker != undefined ) {
-	markersArray.push(temp_marker);
-	iActiveMarker = -1;
-    }
-  }
 }
 
 // temporary marker context menu ----------------------------------------- //

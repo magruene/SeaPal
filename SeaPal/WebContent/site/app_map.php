@@ -8,22 +8,8 @@
 <link href="../css/app/map.css" rel="stylesheet" type="text/css" />
 <link href="../css/app/contextMenu.css" rel="stylesheet" type="text/css" />
 <link href="../css/app/checkbox.css" rel="stylesheet" type="text/css" />
-	  	<style type="text/css">
-		.olControlLayerSwitcher .layersDiv {
-    background-color:#575757 !important;
+<link href="../css/app/custom.css" rel="stylesheet" type="text/css" />
 
-    /* for IE */
-    filter:alpha(opacity=90);
-    /* CSS3 standard */
-    opacity:0.9;
-    border-radius: 4px;
-    color: white;
-
-    font-family: sans-serif;
-    font-size: smaller;  
-    font-weight: bold;
-}
-		</style>
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -42,52 +28,24 @@ $(function() {
 	$('.dropdown-toggle').dropdown();
 	});
 </script>
-<script type="text/javascript">
-$(function() {
-$('.layer').click(function(){
-    var layerID = parseInt($(this).attr('id'));
-    if ($(this).attr('checked')){
-        var overlayMap = new google.maps.ImageMapType(overlayMaps[layerID]);
-        map.overlayMapTypes.setAt(layerID, overlayMap);
-        console.log("test overlay");
-    } else {
-        if (map.overlayMapTypes.getLength() > 0){
-            map.overlayMapTypes.setAt(layerID, null);
-        }
-    }
-});});
-</script>
+
 </head>
 <body onload="initialize();">
 	<!-- Navigation -->
-	
+	<?php include('_include/navigation.php'); ?>
 	<!-- Container -->
+	<br/>
+	<br/>
+	<br/>
+	<br/>
 	<div class="container-fluid">
 		
 		<!-- App Navigation -->
 		<?php include('_include/navigation_app.php'); ?>
-		<br />
-		<br />
-		<input type="checkbox" id="0" class="layer" /><label for="0">Flood Zones</label>
-<input type="checkbox" id="1" class="layer" /><label for="1">Subdivisions</label>
+		
 		<div class="alert fade in" id="reminder" style="display: none;">
 			<button type="button" class="close">x</button>
 			It's about time to make another logbook entry? Click <a onclick="fetchWeatherWithCoords(); $('#myModal').modal('show')" href="#">here</a> or just ignore the message....
-<div class="btn-group">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    Action
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><input type="checkbox" id="c1" name="cc" />
-            <label for="c1"><span></span>Check Box 1</label>
-            <p>
-            <input type="checkbox" id="c2" name="cc" />
-            <label for="c2"><span></span>Check Box 2</label>
-            <p><br/></li>
-  </ul>
-</div>			
-		
 		</div>
 		
           <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -159,12 +117,15 @@ $('.layer').click(function(){
 					id="followCurrentPositionbutton"
 					onclick="javascript: toggleFollowCurrentPosition()" />
 			</div>
-		</div>
+
 
 
 		<!-- Map -->
 		<div id="appWrapper">
-			<div id="map_canvas"></div>
+			<div id="map_canvas">
+			
+			</div>
+		
 		</div>
 
 		<!-- Context Menus -->

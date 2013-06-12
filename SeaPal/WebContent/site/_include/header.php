@@ -32,6 +32,8 @@
 	<script	type="text/javascript" src="../js/bootstrap/bootstrap-tab.js"></script>
 	    <script src="http://openlayers.org/api/OpenLayers.js"></script>
     <script src="http://openweathermap.org/js/OWM.OpenLayers.1.3.6.js" ></script>
+    <script type="text/javascript" src="../js/app/map/gdropdown.js"></script>
+    
 	
 
 
