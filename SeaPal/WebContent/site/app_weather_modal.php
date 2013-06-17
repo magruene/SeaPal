@@ -253,15 +253,6 @@
 	});
 	});
 </script>
-<script>
-$(function(){
-$('#sl1').slider({
-  formater: function(value) {
-    return 'Current value: '+value;
-  }
-});
-});
-</script>
 <script type="text/javascript">
 function isNumberKey(evt) {
 	var charCode = (evt.which) ? evt.which : evt.keyCode;

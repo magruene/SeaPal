@@ -99,7 +99,7 @@ function showWeather() {
 
 }
 
-//This function will be called recursively to get to every Key value.
+// This function will be called recursively to get to every Key value.
 
 function js_traverse(jsonData) {
 	var type = typeof jsonData;
@@ -128,7 +128,33 @@ function js_traverse(jsonData) {
 							$('select[name=rain]').remove();
 						}
 					}
-				} else {
+				} else if (key == "temp") {
+					$('input[name=air_temparature]').val(jsonData[key]);
+					$('select[name=temparature_unit]').val("C");
+				} else if (key == "speed") {
+					$('input[name=wind_strength]').val(jsonData[key]);
+				} else if (key == "deg") {
+					var degree = jsonData[key];
+					
+					if (((degree <= 360) && (degree > 337,5)) || ((degree <= 22,5) && (degree >= 0))){
+					    $('select[name=wind_direction]').val("North");    
+					} else if ((degree <= 67,5) && (degree > 22,5)) {
+						$('select[name=wind_direction]').val("North-East");
+					} else if ((degree <= 	112,5) && (degree > 67,5)) {
+						$('select[name=wind_direction]').val("East");
+					} else if ((degree <= 	157,5) && (degree > 112,5)) {
+						$('select[name=wind_direction]').val("South-East");
+					} else if ((degree <= 	202,5) && (degree > 157,5)) {
+						$('select[name=wind_direction]').val("South");
+					} else if ((degree <= 	247,5) && (degree > 202,5)) {
+						$('select[name=wind_direction]').val("South-West");
+					} else if ((degree <= 	292,5) && (degree > 247,5)) {
+						$('select[name=wind_direction]').val("West");
+					} else if ((degree <= 	337,5) && (degree > 292,5)) {
+						$('select[name=wind_direction]').val("North-West");
+					}
+				} else if (key == "pressure") {
+					$('input[name=air_pressure]').val(jsonData[key]);
 				}
 			}
 			js_traverse(jsonData[key]);
@@ -136,7 +162,7 @@ function js_traverse(jsonData) {
 	}
 }
 
-//Main function to get the json-data about the weather
+// Main function to get the json-data about the weather
 function fetchWeatherWithCoords() {
 
 	var latLng = map.getCenter();
@@ -150,10 +176,61 @@ function fetchWeatherWithCoords() {
 	});
 }
 
-//call the recursiv method
+// call the recursiv method
 function prepareWeatherForm(json) {
 	var jsonData = json;
 	js_traverse(jsonData);
+	parseDate();
+}
+
+function parseDate() {
+	var timezone = "Europe/Berlin";
+	  $.getJSON("http://json-time.appspot.com/time.json?tz="+timezone+"&callback=?",
+	    function(data){
+	      var date = new Date(data.datetime);
+	      var year = date.getFullYear().toString();
+	      year = year.substring(2);
+	      
+	      var month = date.getMonth() + "";
+
+	      if (month.length == 1)
+	         {
+	    	  month = "0" + month;
+	         }
+	      
+	      var day = date.getDate() + "";
+
+	      if (day.length == 1)
+	         {
+	    	  day = "0" + day;
+	         }
+	      
+	      var hour = date.getHours() + "";
+
+	      if (hour.length == 1)
+	         {
+	    	  hour = "0" + hour;
+	         } 
+	      
+	      var minute = date.getMinutes() + "";
+
+	      if (minute.length == 1)
+	         {
+	    	  minute = "0" + minute;
+	         } 
+	      
+	      var second = date.getSeconds()+ "";
+
+	      if (second.length == 1)
+	         {
+	    	  second = "0" + second;
+	         } 
+	      var dateFormatted = year + "-" + month
+	      + "-" + day + " " + hour + ":" 
+	      + minute + ":" + second;
+	      $('input[name=date]').val(dateFormatted);	      
+	    });
+	  
 }
 
 var markersArray = [];
@@ -289,14 +366,6 @@ function initialize() {
 	overlayMaps = [
 			{
 				getTileUrl : function(coord, zoom) {
-					console
-							.log("http://undefined.tile.openweathermap.org/map/precipitation/"
-									+ zoom
-									+ "/"
-									+ coord.x
-									+ "/"
-									+ coord.y
-									+ ".png");
 					return "http://undefined.tile.openweathermap.org/map/precipitation/"
 							+ zoom + "/" + coord.x + "/" + coord.y + ".png";
 				},
@@ -433,9 +502,9 @@ function initialize() {
 
 function addDropDown(map) {
     
-    //start process to set up custom drop down
+    // start process to set up custom drop down
     
-    //create the check box items
+    // create the check box items
     var checkOptions = {
     		gmap: map,
     		title: "Precipitation forecasts",
@@ -491,12 +560,12 @@ function addDropDown(map) {
     }
     var check5 = new checkBox(checkOptions5);
     
-    //create the input box items
+    // create the input box items
     
-    //possibly add a separator between controls        
+    // possibly add a separator between controls
     var sep = new separator();
     
-    //put them all together to create the drop down       
+    // put them all together to create the drop down
     var ddDivOptions = {
     	items: [check1, check2, check3, check4, check5],
     	id: "myddOptsDiv"        		
